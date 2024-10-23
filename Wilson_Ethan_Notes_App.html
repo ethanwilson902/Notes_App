@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Note Taking App</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+  <style>
+    #app {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Note Taking App</h1>
+    <form @submit.prevent="createNote">
+      <input type="text" v-model="newNote" placeholder="Enter note text">
+      <button type="submit">Create Note</button>
+    </form>
+    <ul>
+      <li v-for="(note, index) in notes" :key="index">
+        {{ note }}
+        <button @click="deleteNote(index)">Delete</button>
+      </li>
+    </ul>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        newNote: '',
+        notes: []
+      },
+      methods: {
+        createNote() {
+          this.notes.push(this.newNote);
+          this.newNote = '';
+        },
+        deleteNote(index) {
+          this.notes.splice(index, 1);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
